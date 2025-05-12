@@ -70,7 +70,7 @@ export default {
 					muted: 'hsl(var(--timeline-muted))',
 					bg: 'hsl(var(--timeline-bg))'
 				},
-				// Brabant-themed colors
+				// Enhanced Brabant-themed colors
 				brabant: {
 					primary: '#A06235', // Warm brown/orange (Brabant brick color)
 					'primary-dark': '#8A4E25',
@@ -80,6 +80,9 @@ export default {
 					muted: '#DBCBB6', // Soft beige
 					background: '#F9F5F0', // Soft cream background
 					paper: '#FBF7F1', // Slightly lighter than background
+					community: '#5E8B7E', // Community green
+					brick: '#B85C3C', // Brick red
+					sand: '#E6D2B5', // Sandy beige
 				}
 			},
 			borderRadius: {
@@ -103,13 +106,19 @@ export default {
 				slideIn: {
 					'0%': { transform: 'translateX(50px)', opacity: '0' },
 					'100%': { transform: 'translateX(0)', opacity: '1' }
+				},
+				snapIn: {
+					'0%': { transform: 'translateX(20px)', opacity: '0.5' },
+					'70%': { transform: 'translateX(-5px)', opacity: '0.9' },
+					'100%': { transform: 'translateX(0)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fadeIn 0.5s ease-out',
-				'slide-in': 'slideIn 0.5s ease-out'
+				'slide-in': 'slideIn 0.5s ease-out',
+				'snap-in': 'snapIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
 			}
 		}
 	},

@@ -36,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
     
     /* Custom timeline colors - updated for Brabant style */
@@ -98,20 +91,33 @@
 }
 
 @layer components {
+  /* Base container styles */
+  .container-base {
+    @apply flex flex-col items-center justify-center min-h-screen px-6 py-12 md:px-12 overflow-x-hidden;
+    background-color: #F9F5F0; /* Brabant warm background */
+  }
+  
+  /* Intro and conclusion screen styles */
+  .screen-content {
+    @apply max-w-2xl mx-auto text-center flex flex-col items-center justify-center gap-8;
+  }
+  
+  /* Timeline container */
   .timeline-container {
     @apply relative w-full overflow-x-hidden;
     background-color: #F9F5F0; /* Brabant warm background */
     height: 100vh;
+    scroll-snap-type: x mandatory;
   }
   
   .timeline-scroller {
     @apply flex items-center absolute top-0 left-0 h-screen transition-transform;
-    width: 560vw; /* Width for 8 sections + intro + conclusion with tighter spacing (70% of original) */
+    width: 400vw; /* Width for 8 sections with tighter spacing (50% of original) */
   }
   
   .timeline-path {
     @apply absolute top-1/2 left-0 h-1 transform -translate-y-1/2;
-    width: 560vw; /* Same as scroller width */
+    width: 400vw; /* Same as scroller width */
     background: linear-gradient(to right, #D9A162, #A06235);
   }
 
@@ -120,7 +126,8 @@
   }
   
   .timeline-progress-bar {
-    @apply h-full rounded-full bg-gradient-to-r from-brabant-accent to-brabant-primary transition-all duration-500;
+    @apply h-full rounded-full transition-all duration-500;
+    background: linear-gradient(to right, #D9A162, #A06235);
   }
   
   .timeline-node {
@@ -131,8 +138,8 @@
   }
   
   .timeline-moment {
-    @apply flex flex-col items-center justify-center h-screen px-8 md:px-16;
-    width: 70vw; /* Tighter spacing between moments */
+    @apply flex flex-col items-center justify-center h-screen px-8 md:px-16 snap-center;
+    width: 50vw; /* Tighter spacing between moments */
   }
   
   .moment-scene {
@@ -147,7 +154,7 @@
   }
   
   .moment-options {
-    @apply flex flex-col sm:flex-row gap-4 w-full max-w-md;
+    @apply grid grid-cols-2 gap-4 w-full max-w-md;
   }
   
   .moment-option {
@@ -183,6 +190,24 @@
   .progress-dot.completed {
     background-color: #D9A162; /* Brabant accent */
   }
+
+  /* Results summary styles */
+  .choice-summary {
+    @apply flex flex-col md:flex-row items-center gap-4 bg-white rounded-lg p-4 shadow-sm border border-brabant-muted mb-4;
+    color: #4A3828;
+  }
+  
+  .choice-scene {
+    @apply w-10 h-10 rounded-full bg-brabant-muted/20 flex items-center justify-center;
+  }
+  
+  .choice-text {
+    @apply text-left text-sm flex-1;
+  }
+  
+  .choice-answer {
+    @apply font-medium text-brabant-primary;
+  }
   
   /* Animation classes */
   .fade-in {
@@ -193,6 +218,11 @@
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Button styles */
+  .button-primary {
+    @apply px-8 py-3 bg-brabant-primary text-white rounded-lg hover:bg-brabant-primary-dark transition-all;
   }
   
   .scene-illustration {

@@ -2,11 +2,12 @@
 import { useEffect, useState, useRef } from "react";
 import { timelineMoments } from "@/data/timelineData";
 import SceneIllustration from "@/components/SceneIllustration";
+import IntroScreen from "@/components/IntroScreen";
+import ConclusionScreen from "@/components/ConclusionScreen";
 
 const Timeline = () => {
-  const [currentMomentIndex, setCurrentMomentIndex] = useState(0);
+  const [currentMomentIndex, setCurrentMomentIndex] = useState(-1); // -1 for intro, 0-7 for moments, 8 for conclusion
   const [userChoices, setUserChoices] = useState<Record<number, string>>({});
-  const [locked, setLocked] = useState(true);
   const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -20,31 +21,23 @@ const Timeline = () => {
       if (isScrolling) return;
       
       // Make scrolling less sensitive
-      if (Math.abs(e.deltaY) < 15) return;
+      if (Math.abs(e.deltaY) < 20) return;
       
-      if (e.deltaY > 0 && currentMomentIndex < timelineMoments.length + 1) {
-        // Don't advance if current moment has no choice and it's not the intro or conclusion
-        if (
-          currentMomentIndex > 0 && 
-          currentMomentIndex <= timelineMoments.length && 
-          !userChoices[currentMomentIndex - 1] && 
-          locked
-        ) {
-          return;
-        }
-        
-        // Set scrolling flag to prevent multiple scroll events
-        setIsScrolling(true);
-        
-        // Advancing to next moment
-        if (currentMomentIndex < timelineMoments.length + 1) {
+      if (e.deltaY > 0) {
+        // Scrolling forward
+        if (currentMomentIndex < timelineMoments.length) {
+          // Don't advance if current moment has no choice and it's not the intro
+          if (currentMomentIndex >= 0 && !userChoices[currentMomentIndex]) {
+            return;
+          }
+          
+          // Set scrolling flag to prevent multiple scroll events
+          setIsScrolling(true);
           setCurrentMomentIndex((prev) => prev + 1);
         }
-      } else if (e.deltaY < 0 && currentMomentIndex > 0) {
-        // Set scrolling flag to prevent multiple scroll events
-        setIsScrolling(true);
-        
+      } else if (e.deltaY < 0 && currentMomentIndex > -1) {
         // Scrolling backward is always allowed
+        setIsScrolling(true);
         setCurrentMomentIndex((prev) => prev - 1);
       }
     };
@@ -59,16 +52,16 @@ const Timeline = () => {
         container.removeEventListener("wheel", handleWheel);
       }
     };
-  }, [currentMomentIndex, userChoices, locked, isScrolling]);
+  }, [currentMomentIndex, userChoices, isScrolling]);
 
-  // Update scroll position based on current moment index with smooth easing
+  // Update scroll position based on current moment index with snap effect
   useEffect(() => {
-    if (scrollerRef.current) {
-      // Use smaller width multiplier for tighter spacing between moments
-      const newPosition = -currentMomentIndex * (window.innerWidth * 0.7);
+    if (scrollerRef.current && currentMomentIndex >= 0 && currentMomentIndex < timelineMoments.length) {
+      // Use tighter width multiplier for closer spacing between moments
+      const newPosition = -currentMomentIndex * (window.innerWidth * 0.5); // Reduced from 0.7 to 0.5
       
-      // Apply smooth transition with easing
-      scrollerRef.current.style.transition = "transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)";
+      // Apply smooth transition with easing for a snappy effect
+      scrollerRef.current.style.transition = "transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)";
       scrollerRef.current.style.transform = `translateX(${newPosition}px)`;
       
       // Clear the scrolling flag after animation completes
@@ -77,7 +70,7 @@ const Timeline = () => {
         if (scrollerRef.current) {
           scrollerRef.current.style.transition = "";
         }
-      }, 600);
+      }, 800);
       
       return () => clearTimeout(timer);
     }
@@ -89,16 +82,30 @@ const Timeline = () => {
     
     // Automatically advance to next moment after a short delay
     setTimeout(() => {
-      if (currentMomentIndex < timelineMoments.length + 1) {
-        setCurrentMomentIndex((prev) => prev + 1);
-      }
+      setCurrentMomentIndex((prev) => prev + 1);
     }, 700);
   };
 
-  // Toggle lock to allow/prevent advancing without selection
-  const toggleLock = () => {
-    setLocked((prev) => !prev);
+  // Start the journey
+  const startJourney = () => {
+    setCurrentMomentIndex(0);
   };
+
+  // Reset the journey
+  const resetJourney = () => {
+    setCurrentMomentIndex(-1);
+    setUserChoices({});
+  };
+
+  // Show intro screen
+  if (currentMomentIndex === -1) {
+    return <IntroScreen onStart={startJourney} />;
+  }
+
+  // Show conclusion screen
+  if (currentMomentIndex >= timelineMoments.length) {
+    return <ConclusionScreen choices={userChoices} moments={timelineMoments} onReset={resetJourney} />;
+  }
 
   return (
     <div ref={containerRef} className="timeline-container">
@@ -106,7 +113,7 @@ const Timeline = () => {
       <div className="timeline-progress">
         <div 
           className="timeline-progress-bar" 
-          style={{ width: `${(currentMomentIndex / (timelineMoments.length + 1)) * 100}%` }}
+          style={{ width: `${((currentMomentIndex + 1) / timelineMoments.length) * 100}%` }}
         ></div>
       </div>
       
@@ -114,30 +121,6 @@ const Timeline = () => {
       <div className="timeline-path"></div>
       
       <div ref={scrollerRef} className="timeline-scroller">
-        {/* Intro section */}
-        <section className="timeline-moment">
-          <div className="max-w-2xl mx-auto text-center fade-in">
-            <h1 className="text-4xl font-bold mb-6 text-brabant-primary">Een Dag met AI in 2027</h1>
-            <p className="text-xl mb-8 text-brabant-text">
-              Hoeveel van je dagelijks leven zou je toevertrouwen aan kunstmatige intelligentie?
-            </p>
-            <div className="mb-12">
-              <p className="text-lg mb-4 text-brabant-text">
-                Reis door een dag in de nabije toekomst en beslis op elk moment:
-              </p>
-              <p className="text-xl font-medium text-brabant-primary">
-                Zou jij AI hierover laten beslissen — of houd je liever zelf de regie?
-              </p>
-            </div>
-            <button
-              onClick={() => setCurrentMomentIndex(1)}
-              className="px-8 py-3 bg-brabant-primary text-white rounded-lg hover:bg-brabant-primary-dark transition-all"
-            >
-              Begin Je Dag
-            </button>
-          </div>
-        </section>
-        
         {/* Timeline moments */}
         {timelineMoments.map((moment, index) => (
           <section key={index} className="timeline-moment">
@@ -146,7 +129,7 @@ const Timeline = () => {
             {/* Timeline node with Brabant styling */}
             <div
               className="timeline-node"
-              style={{ left: `${(index + 1) * 70}vw` }} // Tighter spacing
+              style={{ left: `${index * 50}vw` }} // Tighter spacing (reduced from 70vw to 50vw)
             >
               {index + 1}
             </div>
@@ -158,7 +141,7 @@ const Timeline = () => {
             <h2 className="moment-question fade-in">{moment.question}</h2>
             
             <div className="moment-options">
-              {moment.options.map((option, optIndex) => (
+              {moment.options.slice(0, 2).map((option, optIndex) => (
                 <button
                   key={optIndex}
                   className={`moment-option fade-in ${
@@ -186,68 +169,6 @@ const Timeline = () => {
             </div>
           </section>
         ))}
-        
-        {/* Conclusion section */}
-        <section className="timeline-moment">
-          <div className="max-w-2xl mx-auto text-center fade-in">
-            <h2 className="text-3xl font-bold mb-6 text-brabant-primary">Jouw AI Relatie</h2>
-            
-            {Object.keys(userChoices).length === timelineMoments.length ? (
-              <>
-                <p className="text-xl mb-6 text-brabant-text">
-                  Op basis van jouw keuzes, geef je de voorkeur aan:
-                </p>
-                <div className="bg-white p-6 rounded-xl shadow-md mb-8 border-brabant-accent border">
-                  {(() => {
-                    const aiChoices = Object.values(userChoices).filter(
-                      choice => choice.toLowerCase().includes("ai") || choice.toLowerCase().includes("let")
-                    ).length;
-                    const humanChoices = timelineMoments.length - aiChoices;
-                    
-                    if (aiChoices > humanChoices + 2) {
-                      return (
-                        <p className="text-lg">
-                          <span className="font-bold text-brabant-primary">Volledig omarmen van AI</span> - Je vindt het prima om AI veel dagelijkse beslissingen voor je te laten nemen, met focus op efficiëntie en optimalisatie.
-                        </p>
-                      );
-                    } else if (aiChoices > humanChoices) {
-                      return (
-                        <p className="text-lg">
-                          <span className="font-bold text-brabant-primary">Samenwerken met AI</span> - Je ziet AI als een hulpmiddel dat je leven kan verbeteren terwijl je nog steeds enige persoonlijke controle houdt.
-                        </p>
-                      );
-                    } else if (humanChoices > aiChoices + 2) {
-                      return (
-                        <p className="text-lg">
-                          <span className="font-bold text-brabant-primary">Onafhankelijkheid behouden</span> - Je geeft er de voorkeur aan om de meeste beslissingen zelf te nemen, met waarde voor menselijk oordeel en persoonlijke keuzes.
-                        </p>
-                      );
-                    } else {
-                      return (
-                        <p className="text-lg">
-                          <span className="font-bold text-brabant-primary">Balans tussen AI en menselijke keuze</span> - Je overweegt zorgvuldig waar AI waarde toevoegt versus waar menselijk oordeel belangrijker is.
-                        </p>
-                      );
-                    }
-                  })()}
-                </div>
-                <button
-                  onClick={() => {
-                    setCurrentMomentIndex(0);
-                    setUserChoices({});
-                  }}
-                  className="px-8 py-3 bg-brabant-primary text-white rounded-lg hover:bg-brabant-primary-dark transition-all"
-                >
-                  Opnieuw Beginnen
-                </button>
-              </>
-            ) : (
-              <p className="text-xl text-brabant-text">
-                Maak alle momenten af om je AI-relatieprofiel te bekijken.
-              </p>
-            )}
-          </div>
-        </section>
       </div>
     </div>
   );

@@ -12,9 +12,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "wake-up",
     question: "Would you let AI pick your outfit based on your day's schedule and the weather?",
     options: [
-      { text: "Let AI suggest the perfect outfit" },
-      { text: "I'll choose my own clothes" },
-      { text: "AI can suggest, but I'll make the final choice" }
+      { text: "Let AI suggest my outfit" },
+      { text: "I'll choose my own clothes" }
     ]
   },
   {
@@ -22,9 +21,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "calendar",
     question: "Should AI reorder your schedule for maximum efficiency today?",
     options: [
-      { text: "Let AI optimize my entire day" },
-      { text: "I'll manage my own schedule" },
-      { text: "AI can suggest changes, but I decide" }
+      { text: "Let AI optimize my schedule" },
+      { text: "I'll manage my own time" }
     ]
   },
   {
@@ -32,9 +30,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "commuting",
     question: "Would you let AI choose the fastest, greenest route for your commute?",
     options: [
-      { text: "Let AI plan my route completely" },
-      { text: "I'll take my usual way" },
-      { text: "Show me options but I'll decide" }
+      { text: "Let AI plan my route" },
+      { text: "I'll decide my own way" }
     ]
   },
   {
@@ -42,9 +39,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "reading",
     question: "Would you let AI summarize and highlight key risks in a policy document?",
     options: [
-      { text: "Let AI analyze and highlight important points" },
-      { text: "I prefer to read and understand it myself" },
-      { text: "AI can help, but I'll verify everything" }
+      { text: "Let AI analyze the document" },
+      { text: "I prefer to read it myself" }
     ]
   },
   {
@@ -53,8 +49,7 @@ export const timelineMoments: TimelineMoment[] = [
     question: "Would you let AI recommend lunch based on your health goals and afternoon meetings?",
     options: [
       { text: "Let AI choose my meal" },
-      { text: "I'll decide what I want to eat" },
-      { text: "Show me options that fit my needs" }
+      { text: "I'll decide what to eat" }
     ]
   },
   {
@@ -63,8 +58,7 @@ export const timelineMoments: TimelineMoment[] = [
     question: "Would you let AI suggest talking points based on your upcoming meeting guest?",
     options: [
       { text: "Let AI prepare my talking points" },
-      { text: "I'll prepare on my own" },
-      { text: "AI can suggest topics, but I'll refine them" }
+      { text: "I'll prepare on my own" }
     ]
   },
   {
@@ -72,9 +66,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "dinner",
     question: "Would you let AI plan and arrange delivery of your dinner?",
     options: [
-      { text: "Let AI order something perfect for me" },
-      { text: "I'll cook or choose takeout myself" },
-      { text: "AI can suggest options, but I decide" }
+      { text: "Let AI order dinner for me" },
+      { text: "I'll cook or order myself" }
     ]
   },
   {
@@ -82,9 +75,8 @@ export const timelineMoments: TimelineMoment[] = [
     scene: "reflection",
     question: "Would you let AI review your day and suggest improvements for tomorrow?",
     options: [
-      { text: "Let AI analyze my day and optimize tomorrow" },
-      { text: "I prefer to reflect on my day myself" },
-      { text: "AI can share insights, but I'll decide what to change" }
+      { text: "Let AI analyze my day" },
+      { text: "I prefer to reflect myself" }
     ]
   }
 ];
