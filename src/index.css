@@ -51,12 +51,12 @@
 
     --sidebar-ring: 217.2 91.2% 59.8%;
     
-    /* Custom timeline colors */
-    --timeline-bg: 210 50% 98%;
-    --timeline-path: 210 100% 70%;
-    --timeline-accent: 210 80% 60%;
-    --timeline-text: 222 40% 25%;
-    --timeline-muted: 210 30% 70%;
+    /* Custom timeline colors - updated for Brabant style */
+    --timeline-bg: 36 100% 97%;
+    --timeline-path: 24 65% 56%;
+    --timeline-accent: 29 70% 62%;
+    --timeline-text: 27 25% 22%;
+    --timeline-muted: 34 40% 80%;
   }
 
   .dark {
@@ -65,12 +65,12 @@
 
     /* ... other dark colors ... */
     
-    /* Custom timeline colors for dark mode */
-    --timeline-bg: 222 30% 10%;
-    --timeline-path: 210 70% 40%;
-    --timeline-accent: 210 70% 50%;
-    --timeline-text: 210 15% 90%;
-    --timeline-muted: 210 15% 60%;
+    /* Custom timeline colors for dark mode - updated for Brabant style */
+    --timeline-bg: 27 30% 10%;
+    --timeline-path: 24 50% 40%;
+    --timeline-accent: 29 50% 50%;
+    --timeline-text: 34 15% 85%;
+    --timeline-muted: 34 15% 60%;
   }
 }
 
@@ -82,6 +82,7 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+    background-color: #F9F5F0; /* Brabant-themed background */
   }
   
   /* Hide scrollbar for cleaner look */
@@ -99,39 +100,50 @@
 @layer components {
   .timeline-container {
     @apply relative w-full overflow-x-hidden;
-    background-color: hsl(var(--timeline-bg));
+    background-color: #F9F5F0; /* Brabant warm background */
     height: 100vh;
   }
   
   .timeline-scroller {
     @apply flex items-center absolute top-0 left-0 h-screen transition-transform;
-    width: 800vw; /* Width for 8 sections + intro + conclusion */
+    width: 560vw; /* Width for 8 sections + intro + conclusion with tighter spacing (70% of original) */
   }
   
   .timeline-path {
-    @apply absolute top-1/2 left-0 h-1 bg-gradient-to-r from-blue-300 to-blue-500 transform -translate-y-1/2;
-    width: 800vw; /* Same as scroller width */
+    @apply absolute top-1/2 left-0 h-1 transform -translate-y-1/2;
+    width: 560vw; /* Same as scroller width */
+    background: linear-gradient(to right, #D9A162, #A06235);
+  }
+
+  .timeline-progress {
+    @apply fixed top-4 left-1/2 transform -translate-x-1/2 w-64 h-2 bg-brabant-muted/30 rounded-full z-10;
+  }
+  
+  .timeline-progress-bar {
+    @apply h-full rounded-full bg-gradient-to-r from-brabant-accent to-brabant-primary transition-all duration-500;
   }
   
   .timeline-node {
     @apply absolute top-1/2 w-6 h-6 rounded-full border-4 bg-white transform -translate-y-1/2 flex items-center justify-center font-bold text-xs;
-    border-color: hsl(var(--timeline-accent));
-    color: hsl(var(--timeline-accent));
+    border-color: #A06235; /* Brabant primary */
+    color: #A06235;
+    box-shadow: 0 0 0 4px rgba(160, 98, 53, 0.1);
   }
   
   .timeline-moment {
     @apply flex flex-col items-center justify-center h-screen px-8 md:px-16;
-    width: 100vw;
+    width: 70vw; /* Tighter spacing between moments */
   }
   
   .moment-scene {
-    @apply mb-8 h-48 w-full max-w-md rounded-xl overflow-hidden flex items-center justify-center;
-    background-color: hsl(var(--timeline-bg));
+    @apply mb-8 h-48 w-full max-w-md rounded-xl overflow-hidden flex items-center justify-center shadow-md;
+    background-color: #F9F5F0; /* Brabant background */
+    border: 1px solid rgba(160, 98, 53, 0.1);
   }
   
   .moment-question {
     @apply text-xl md:text-2xl font-medium text-center mb-8 max-w-md;
-    color: hsl(var(--timeline-text));
+    color: #4A3828; /* Brabant text color */
   }
   
   .moment-options {
@@ -140,17 +152,19 @@
   
   .moment-option {
     @apply px-6 py-3 rounded-lg text-center transition-all duration-200 border-2 hover:scale-105 cursor-pointer;
-    border-color: hsl(var(--timeline-accent));
-    color: hsl(var(--timeline-text));
+    border-color: #D9A162; /* Brabant accent */
+    color: #4A3828; /* Brabant text */
+    background-color: rgba(255, 255, 255, 0.5);
   }
   
   .moment-option.selected {
-    @apply bg-blue-500 text-white border-blue-600;
+    @apply text-white border-brabant-primary-dark;
+    background-color: #A06235; /* Brabant primary */
   }
   
   .time-indicator {
     @apply absolute top-12 left-1/2 transform -translate-x-1/2 text-xl font-medium;
-    color: hsl(var(--timeline-accent));
+    color: #A06235; /* Brabant primary */
   }
   
   .progress-indicator {
@@ -159,11 +173,15 @@
   
   .progress-dot {
     @apply w-2 h-2 rounded-full;
-    background-color: hsl(var(--timeline-muted));
+    background-color: #DBCBB6; /* Brabant muted */
   }
   
   .progress-dot.active {
-    background-color: hsl(var(--timeline-accent));
+    background-color: #A06235; /* Brabant primary */
+  }
+
+  .progress-dot.completed {
+    background-color: #D9A162; /* Brabant accent */
   }
   
   /* Animation classes */
@@ -179,5 +197,6 @@
   
   .scene-illustration {
     @apply w-full h-full object-contain;
+    background: linear-gradient(to right, rgba(217, 161, 98, 0.1), rgba(160, 98, 53, 0.1));
   }
 }

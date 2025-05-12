@@ -69,6 +69,17 @@ export default {
 					text: 'hsl(var(--timeline-text))',
 					muted: 'hsl(var(--timeline-muted))',
 					bg: 'hsl(var(--timeline-bg))'
+				},
+				// Brabant-themed colors
+				brabant: {
+					primary: '#A06235', // Warm brown/orange (Brabant brick color)
+					'primary-dark': '#8A4E25',
+					secondary: '#436E4F', // Natural green
+					accent: '#D9A162', // Warm orange/gold accent
+					text: '#4A3828', // Warm dark brown for text
+					muted: '#DBCBB6', // Soft beige
+					background: '#F9F5F0', // Soft cream background
+					paper: '#FBF7F1', // Slightly lighter than background
 				}
 			},
 			borderRadius: {
