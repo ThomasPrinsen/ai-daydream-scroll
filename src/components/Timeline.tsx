@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { timelineMoments } from "@/data/timelineData";
 import SceneIllustration from "@/components/SceneIllustration";
@@ -57,13 +56,15 @@ const Timeline = () => {
   // Update scroll position based on current moment index with snap effect
   useEffect(() => {
     if (scrollerRef.current && currentMomentIndex >= 0 && currentMomentIndex < timelineMoments.length) {
-      // Use tighter width multiplier for closer spacing between moments
-      const newPosition = -currentMomentIndex * (window.innerWidth * 0.5); // Reduced from 0.7 to 0.5
-      
+      // Center each card in the viewport
+      const cardWidth = window.innerWidth * 0.5;
+      const centerOffset = (window.innerWidth - cardWidth) / 2;
+      const newPosition = -currentMomentIndex * cardWidth + centerOffset;
+
       // Apply smooth transition with easing for a snappy effect
       scrollerRef.current.style.transition = "transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)";
       scrollerRef.current.style.transform = `translateX(${newPosition}px)`;
-      
+
       // Clear the scrolling flag after animation completes
       const timer = setTimeout(() => {
         setIsScrolling(false);
@@ -71,7 +72,7 @@ const Timeline = () => {
           scrollerRef.current.style.transition = "";
         }
       }, 800);
-      
+
       return () => clearTimeout(timer);
     }
   }, [currentMomentIndex]);
@@ -109,23 +110,27 @@ const Timeline = () => {
 
   return (
     <div ref={containerRef} className="timeline-container">
-      {/* Progress indicator */}
-      <div className="timeline-progress">
-        <div 
-          className="timeline-progress-bar" 
-          style={{ width: `${((currentMomentIndex + 1) / timelineMoments.length) * 100}%` }}
-        ></div>
+      {/* Progress indicator - moved outside the scroller and fixed at bottom center */}
+      <div className="progress-indicator-fixed">
+        {timelineMoments.map((_, dotIndex) => (
+          <div
+            key={dotIndex}
+            className={`progress-dot ${
+              dotIndex === currentMomentIndex ? "active" : ""
+            } ${
+              dotIndex < currentMomentIndex ? "completed" : ""
+            }`}
+          ></div>
+        ))}
       </div>
-      
       {/* Timeline path with warm Brabant colors */}
       <div className="timeline-path"></div>
-      
       <div ref={scrollerRef} className="timeline-scroller">
         {/* Timeline moments */}
         {timelineMoments.map((moment, index) => (
           <section key={index} className="timeline-moment">
-            <div className="time-indicator">{moment.time}</div>
-            
+            {/* Time indicator as a normal block at the top of the card */}
+            <div className="time-indicator-static">{moment.time}</div>
             {/* Timeline node with Brabant styling */}
             <div
               className="timeline-node"
@@ -133,13 +138,10 @@ const Timeline = () => {
             >
               {index + 1}
             </div>
-            
             <div className="moment-scene">
               <SceneIllustration scene={moment.scene} />
             </div>
-            
             <h2 className="moment-question fade-in">{moment.question}</h2>
-            
             <div className="moment-options">
               {moment.options.slice(0, 2).map((option, optIndex) => (
                 <button
@@ -152,19 +154,6 @@ const Timeline = () => {
                 >
                   {option.text}
                 </button>
-              ))}
-            </div>
-            
-            <div className="progress-indicator">
-              {timelineMoments.map((_, dotIndex) => (
-                <div
-                  key={dotIndex}
-                  className={`progress-dot ${
-                    dotIndex === index ? "active" : ""
-                  } ${
-                    dotIndex < index ? "completed" : ""
-                  }`}
-                ></div>
               ))}
             </div>
           </section>

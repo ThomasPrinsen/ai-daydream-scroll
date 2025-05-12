@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TimelineMoment } from '@/data/timelineData';
 import { Clock, Calendar, Navigation, FileText, Salad, Users, ChefHat, LineChart } from 'lucide-react';
@@ -84,25 +83,23 @@ const ConclusionScreen: React.FC<ConclusionScreenProps> = ({ choices, moments, o
           </div>
         </div>
         
-        <div className="w-full max-w-md mx-auto mb-8">
-          <h4 className="text-lg font-medium mb-4 text-brabant-text">Je keuzes samengevat:</h4>
-          
-          <div className="space-y-3">
-            {moments.map((moment, index) => (
-              <div key={index} className="choice-summary">
-                <div className="choice-scene">
-                  {getSceneIcon(moment.scene)}
-                </div>
-                <div className="choice-text">
-                  <div className="text-xs text-brabant-text/70">{moment.time}</div>
-                  <div>{moment.question.split("?")[0]}?</div>
-                </div>
-                <div className="choice-answer">
-                  {choices[index] || "Geen keuze"}
-                </div>
+        <h4 className="text-lg font-medium mb-4 text-brabant-text">Je keuzes samengevat:</h4>
+        
+        <div className="space-y-3">
+          {moments.map((moment, index) => (
+            <div key={index} className="choice-summary">
+              <div className="choice-scene">
+                {getSceneIcon(moment.scene)}
               </div>
-            ))}
-          </div>
+              <div className="choice-text">
+                <div className="text-xs text-brabant-text/70">{moment.time}</div>
+                <div>{moment.question.split("?")[0]}?</div>
+              </div>
+              <div className="choice-answer">
+                {choices[index] || "Geen keuze"}
+              </div>
+            </div>
+          ))}
         </div>
         
         <button

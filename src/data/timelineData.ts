@@ -1,4 +1,3 @@
-
 export interface TimelineMoment {
   time: string;
   scene: string;
@@ -10,73 +9,73 @@ export const timelineMoments: TimelineMoment[] = [
   {
     time: "07:00",
     scene: "wake-up",
-    question: "Would you let AI pick your outfit based on your day's schedule and the weather?",
+    question: "Zou je AI je outfit laten kiezen op basis van je dagschema en het weer?",
     options: [
-      { text: "Let AI suggest my outfit" },
-      { text: "I'll choose my own clothes" }
+      { text: "Laat AI mijn outfit voorstellen" },
+      { text: "Ik kies mijn eigen kleren" }
     ]
   },
   {
     time: "08:15",
     scene: "calendar",
-    question: "Should AI reorder your schedule for maximum efficiency today?",
+    question: "Zou je AI je schema laten herschikken voor maximale efficiëntie vandaag?",
     options: [
-      { text: "Let AI optimize my schedule" },
-      { text: "I'll manage my own time" }
+      { text: "Laat AI mijn schema optimaliseren" },
+      { text: "Ik beheer mijn eigen tijd" }
     ]
   },
   {
     time: "09:00",
     scene: "commuting",
-    question: "Would you let AI choose the fastest, greenest route for your commute?",
+    question: "Zou je AI de snelste, groenste route voor je woon-werkverkeer laten kiezen?",
     options: [
-      { text: "Let AI plan my route" },
-      { text: "I'll decide my own way" }
+      { text: "Laat AI mijn route plannen" },
+      { text: "Ik bepaal mijn eigen route" }
     ]
   },
   {
     time: "11:00",
     scene: "reading",
-    question: "Would you let AI summarize and highlight key risks in a policy document?",
+    question: "Zou je AI een beleidsdocument laten samenvatten en de belangrijkste risico's laten markeren?",
     options: [
-      { text: "Let AI analyze the document" },
-      { text: "I prefer to read it myself" }
+      { text: "Laat AI het document analyseren" },
+      { text: "Ik lees het liever zelf" }
     ]
   },
   {
     time: "13:00",
     scene: "lunch",
-    question: "Would you let AI recommend lunch based on your health goals and afternoon meetings?",
+    question: "Zou je AI lunch laten aanbevelen op basis van je gezondheidsdoelen en middagafspraken?",
     options: [
-      { text: "Let AI choose my meal" },
-      { text: "I'll decide what to eat" }
+      { text: "Laat AI mijn maaltijd kiezen" },
+      { text: "Ik bepaal zelf wat ik eet" }
     ]
   },
   {
     time: "16:00",
     scene: "meeting",
-    question: "Would you let AI suggest talking points based on your upcoming meeting guest?",
+    question: "Zou je AI gespreks­punten laten voorstellen op basis van je aankomende gast?",
     options: [
-      { text: "Let AI prepare my talking points" },
-      { text: "I'll prepare on my own" }
+      { text: "Laat AI mijn gespreks­punten voorbereiden" },
+      { text: "Ik bereid het zelf voor" }
     ]
   },
   {
     time: "18:30",
     scene: "dinner",
-    question: "Would you let AI plan and arrange delivery of your dinner?",
+    question: "Zou je AI je diner laten plannen en bezorgen?",
     options: [
-      { text: "Let AI order dinner for me" },
-      { text: "I'll cook or order myself" }
+      { text: "Laat AI het diner bestellen" },
+      { text: "Ik kook of bestel zelf" }
     ]
   },
   {
     time: "21:30",
     scene: "reflection",
-    question: "Would you let AI review your day and suggest improvements for tomorrow?",
+    question: "Zou je AI je dag laten evalueren en verbeteringen voor morgen laten voorstellen?",
     options: [
-      { text: "Let AI analyze my day" },
-      { text: "I prefer to reflect myself" }
+      { text: "Laat AI mijn dag analyseren" },
+      { text: "Ik reflecteer liever zelf" }
     ]
   }
 ];
