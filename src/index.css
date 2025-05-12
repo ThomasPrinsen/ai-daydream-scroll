@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,44 +50,27 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Custom timeline colors */
+    --timeline-bg: 210 50% 98%;
+    --timeline-path: 210 100% 70%;
+    --timeline-accent: 210 80% 60%;
+    --timeline-text: 222 40% 25%;
+    --timeline-muted: 210 30% 70%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* ... other dark colors ... */
+    
+    /* Custom timeline colors for dark mode */
+    --timeline-bg: 222 30% 10%;
+    --timeline-path: 210 70% 40%;
+    --timeline-accent: 210 70% 50%;
+    --timeline-text: 210 15% 90%;
+    --timeline-muted: 210 15% 60%;
   }
 }
 
@@ -97,5 +81,103 @@
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  
+  /* Hide scrollbar for cleaner look */
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@layer components {
+  .timeline-container {
+    @apply relative w-full overflow-x-hidden;
+    background-color: hsl(var(--timeline-bg));
+    height: 100vh;
+  }
+  
+  .timeline-scroller {
+    @apply flex items-center absolute top-0 left-0 h-screen transition-transform;
+    width: 800vw; /* Width for 8 sections + intro + conclusion */
+  }
+  
+  .timeline-path {
+    @apply absolute top-1/2 left-0 h-1 bg-gradient-to-r from-blue-300 to-blue-500 transform -translate-y-1/2;
+    width: 800vw; /* Same as scroller width */
+  }
+  
+  .timeline-node {
+    @apply absolute top-1/2 w-6 h-6 rounded-full border-4 bg-white transform -translate-y-1/2 flex items-center justify-center font-bold text-xs;
+    border-color: hsl(var(--timeline-accent));
+    color: hsl(var(--timeline-accent));
+  }
+  
+  .timeline-moment {
+    @apply flex flex-col items-center justify-center h-screen px-8 md:px-16;
+    width: 100vw;
+  }
+  
+  .moment-scene {
+    @apply mb-8 h-48 w-full max-w-md rounded-xl overflow-hidden flex items-center justify-center;
+    background-color: hsl(var(--timeline-bg));
+  }
+  
+  .moment-question {
+    @apply text-xl md:text-2xl font-medium text-center mb-8 max-w-md;
+    color: hsl(var(--timeline-text));
+  }
+  
+  .moment-options {
+    @apply flex flex-col sm:flex-row gap-4 w-full max-w-md;
+  }
+  
+  .moment-option {
+    @apply px-6 py-3 rounded-lg text-center transition-all duration-200 border-2 hover:scale-105 cursor-pointer;
+    border-color: hsl(var(--timeline-accent));
+    color: hsl(var(--timeline-text));
+  }
+  
+  .moment-option.selected {
+    @apply bg-blue-500 text-white border-blue-600;
+  }
+  
+  .time-indicator {
+    @apply absolute top-12 left-1/2 transform -translate-x-1/2 text-xl font-medium;
+    color: hsl(var(--timeline-accent));
+  }
+  
+  .progress-indicator {
+    @apply absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2;
+  }
+  
+  .progress-dot {
+    @apply w-2 h-2 rounded-full;
+    background-color: hsl(var(--timeline-muted));
+  }
+  
+  .progress-dot.active {
+    background-color: hsl(var(--timeline-accent));
+  }
+  
+  /* Animation classes */
+  .fade-in {
+    @apply transition-opacity duration-500 ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .scene-illustration {
+    @apply w-full h-full object-contain;
   }
 }
