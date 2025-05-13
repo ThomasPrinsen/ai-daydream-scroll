@@ -117,7 +117,7 @@
   .timeline-path {
     @apply absolute top-1/2 left-0 h-1 transform -translate-y-1/2;
     width: 400vw; /* Same as scroller width */
-    background: linear-gradient(to right, #D9A162, #A06235);
+    background: linear-gradient(to right, #F87171, #D72638);
   }
 
   .timeline-progress {
@@ -126,30 +126,37 @@
   
   .timeline-progress-bar {
     @apply h-full rounded-full transition-all duration-500;
-    background: linear-gradient(to right, #D9A162, #A06235);
+    background: linear-gradient(to right, #F87171, #D72638);
   }
   
   .timeline-node {
     @apply absolute top-1/2 w-6 h-6 rounded-full border-4 bg-white transform -translate-y-1/2 flex items-center justify-center font-bold text-xs;
-    border-color: #A06235; /* Brabant primary */
-    color: #A06235;
-    box-shadow: 0 0 0 4px rgba(160, 98, 53, 0.1);
+    border-color: #D72638;
+    color: #D72638;
+    box-shadow: 0 0 0 4px rgba(215, 38, 56, 0.1);
   }
   
   .timeline-moment {
     @apply flex flex-col items-center justify-center h-screen px-8 md:px-16 snap-center;
-    width: 50vw; /* Tighter spacing between moments */
+    width: 50vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   
   .moment-scene {
     @apply mb-8 h-48 w-full max-w-md rounded-xl overflow-hidden flex items-center justify-center shadow-md;
-    background-color: #F9F5F0; /* Brabant background */
-    border: 1px solid rgba(160, 98, 53, 0.1);
+    background-color: #F9F5F0;
+    border: 1px solid rgba(215, 38, 56, 0.1);
   }
   
   .moment-question {
     @apply text-xl md:text-2xl font-medium text-center mb-8 max-w-md;
-    color: #4A3828; /* Brabant text color */
+    color: #991B1B;
   }
   
   .moment-options {
@@ -158,19 +165,19 @@
   
   .moment-option {
     @apply px-6 py-3 rounded-lg text-center transition-all duration-200 border-2 hover:scale-105 cursor-pointer;
-    border-color: #D9A162; /* Brabant accent */
-    color: #4A3828; /* Brabant text */
+    border-color: #F87171;
+    color: #991B1B;
     background-color: rgba(255, 255, 255, 0.5);
   }
   
   .moment-option.selected {
-    @apply text-white border-brabant-primary-dark;
-    background-color: #A06235; /* Brabant primary */
+    @apply text-white border-red-700;
+    background-color: #D72638;
   }
   
   .time-indicator {
     @apply absolute top-12 left-1/2 transform -translate-x-1/2 text-xl font-medium;
-    color: #A06235; /* Brabant primary */
+    color: #D72638;
   }
   
   .progress-indicator {
@@ -179,21 +186,21 @@
   
   .progress-dot {
     @apply w-2 h-2 rounded-full;
-    background-color: #DBCBB6; /* Brabant muted */
+    background-color: #FCA5A5;
   }
   
   .progress-dot.active {
-    background-color: #A06235; /* Brabant primary */
+    background-color: #D72638;
   }
 
   .progress-dot.completed {
-    background-color: #D9A162; /* Brabant accent */
+    background-color: #F87171;
   }
 
   /* Results summary styles */
   .choice-summary {
     @apply flex flex-col md:flex-row items-center gap-4 bg-white rounded-lg p-4 shadow-sm border border-brabant-muted mb-4;
-    color: #4A3828;
+    color: #991B1B;
   }
   
   .choice-scene {
@@ -205,7 +212,7 @@
   }
   
   .choice-answer {
-    @apply font-medium text-brabant-primary;
+    @apply font-medium text-red-600;
   }
   
   /* Animation classes */
@@ -221,12 +228,12 @@
   
   /* Button styles */
   .button-primary {
-    @apply px-8 py-3 bg-brabant-primary text-white rounded-lg hover:bg-brabant-primary-dark transition-all;
+    @apply px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all;
   }
   
   .scene-illustration {
     @apply w-full h-full object-contain;
-    background: linear-gradient(to right, rgba(217, 161, 98, 0.1), rgba(160, 98, 53, 0.1));
+    background: linear-gradient(to right, rgba(248, 113, 113, 0.1), rgba(215, 38, 56, 0.1));
   }
 
   .progress-indicator-fixed {
@@ -243,7 +250,7 @@
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
     font-weight: 500;
-    color: #A06235; /* Brabant primary */
+    color: #D72638;
     text-align: center;
   }
 }

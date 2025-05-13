@@ -44,15 +44,15 @@ const ConclusionScreen: React.FC<ConclusionScreenProps> = ({ choices, moments, o
   // Get icon for each scene
   const getSceneIcon = (scene: string) => {
     switch (scene) {
-      case "wake-up": return <Clock className="w-5 h-5 text-brabant-primary" />;
-      case "calendar": return <Calendar className="w-5 h-5 text-brabant-primary" />;
-      case "commuting": return <Navigation className="w-5 h-5 text-brabant-primary" />;
-      case "reading": return <FileText className="w-5 h-5 text-brabant-primary" />;
-      case "lunch": return <Salad className="w-5 h-5 text-brabant-primary" />;
-      case "meeting": return <Users className="w-5 h-5 text-brabant-primary" />;
-      case "dinner": return <ChefHat className="w-5 h-5 text-brabant-primary" />;
-      case "reflection": return <LineChart className="w-5 h-5 text-brabant-primary" />;
-      default: return <Clock className="w-5 h-5 text-brabant-primary" />;
+      case "wake-up": return <Clock className="w-5 h-5 text-red-600" />;
+      case "calendar": return <Calendar className="w-5 h-5 text-red-600" />;
+      case "commuting": return <Navigation className="w-5 h-5 text-red-600" />;
+      case "reading": return <FileText className="w-5 h-5 text-red-600" />;
+      case "lunch": return <Salad className="w-5 h-5 text-red-600" />;
+      case "meeting": return <Users className="w-5 h-5 text-red-600" />;
+      case "dinner": return <ChefHat className="w-5 h-5 text-red-600" />;
+      case "reflection": return <LineChart className="w-5 h-5 text-red-600" />;
+      default: return <Clock className="w-5 h-5 text-red-600" />;
     }
   };
 
@@ -61,20 +61,20 @@ const ConclusionScreen: React.FC<ConclusionScreenProps> = ({ choices, moments, o
   return (
     <div className="container-base">
       <div className="screen-content fade-in">
-        <h2 className="text-3xl font-bold mb-6 text-brabant-primary">Jouw AI Relatie</h2>
+        <h2 className="text-3xl font-bold mb-6 text-red-600">Jouw AI Relatie</h2>
         
-        <div className="w-24 h-1 bg-brabant-accent mb-8"></div>
+        <div className="w-24 h-1 bg-red-400 mb-8"></div>
         
         <p className="text-xl mb-6 text-brabant-text">
           Op basis van jouw keuzes, geef je de voorkeur aan:
         </p>
         
-        <div className="bg-white p-6 rounded-xl shadow-md mb-8 border-brabant-accent border">
-          <h3 className="text-xl font-bold text-brabant-primary mb-2">{preference.title}</h3>
+        <div className="bg-white p-6 rounded-xl shadow-md mb-8 border-red-400 border">
+          <h3 className="text-xl font-bold text-red-600 mb-2">{preference.title}</h3>
           <p className="text-lg text-brabant-text">{preference.description}</p>
           
           <div className="mt-4 flex justify-center gap-2">
-            <div className="px-3 py-1 rounded-full bg-brabant-primary/10 text-brabant-primary text-sm font-medium">
+            <div className="px-3 py-1 rounded-full bg-red-600/10 text-red-600 text-sm font-medium">
               {aiChoices} AI keuzes
             </div>
             <div className="px-3 py-1 rounded-full bg-brabant-muted text-brabant-text text-sm font-medium">
@@ -100,6 +100,27 @@ const ConclusionScreen: React.FC<ConclusionScreenProps> = ({ choices, moments, o
               </div>
             </div>
           ))}
+        </div>
+
+        {/* CONCLUSION BLOCK */}
+        <div style={{
+          background: 'rgba(215,38,56,0.07)',
+          borderRadius: '1rem',
+          padding: '2rem 1.5rem',
+          marginTop: '2.5rem',
+          marginBottom: '1.5rem',
+          textAlign: 'center',
+          color: '#991B1B',
+          fontWeight: 500,
+          fontSize: '1.15rem',
+          boxShadow: '0 2px 12px rgba(215,38,56,0.06)',
+        }}>
+          <div style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '1rem', color: '#D72638' }}>
+            Jouw impact in één oogopslag
+          </div>
+          Door jouw keuzes heb je tijd bespaard – in totaal <b>[X]</b> minuten.<br />
+          Je bent <b>[Y]</b> MB/GB aan data kwijtgeraakt aan derden.<br />
+          Bovendien heb je heeft je ecologische voetafdruk ook impact gehad: jouw keuzes hebben gezorgd voor een <b>[Z]</b>% hogere digitale voetafdruk. 
         </div>
         
         <button

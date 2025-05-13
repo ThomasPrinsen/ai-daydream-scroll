@@ -8,6 +8,7 @@ const Timeline = () => {
   const [currentMomentIndex, setCurrentMomentIndex] = useState(-1); // -1 for intro, 0-7 for moments, 8 for conclusion
   const [userChoices, setUserChoices] = useState<Record<number, string>>({});
   const [isScrolling, setIsScrolling] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   
@@ -111,21 +112,96 @@ const Timeline = () => {
   return (
     <div ref={containerRef} className="timeline-container">
       {/* Progress indicator - moved outside the scroller and fixed at bottom center */}
-      <div className="progress-indicator-fixed">
-        {timelineMoments.map((_, dotIndex) => (
-          <div
-            key={dotIndex}
-            className={`progress-dot ${
-              dotIndex === currentMomentIndex ? "active" : ""
-            } ${
-              dotIndex < currentMomentIndex ? "completed" : ""
-            }`}
-          ></div>
-        ))}
+      <div className="progress-indicator-fixed" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <button
+          onClick={() => setShowModal(true)}
+          style={{
+            background: 'none',
+            border: '2px solid #D72638',
+            color: '#D72638',
+            borderRadius: '8px',
+            padding: '0.5rem 1.5rem',
+            fontSize: '1rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            marginBottom: '0.75rem',
+            transition: 'background 0.2s, color 0.2s',
+          }}
+          onMouseOver={e => { e.currentTarget.style.background = '#D72638'; e.currentTarget.style.color = '#fff'; }}
+          onMouseOut={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#D72638'; }}
+        >
+          Terug
+        </button>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '8px' }}>
+          {timelineMoments.map((_, dotIndex) => (
+            <div
+              key={dotIndex}
+              className={`progress-dot ${
+                dotIndex === currentMomentIndex ? "active" : ""
+              } ${
+                dotIndex < currentMomentIndex ? "completed" : ""
+              }`}
+            ></div>
+          ))}
+        </div>
       </div>
+      {/* Custom modal for Terug button */}
+      {showModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.35)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}>
+          <div style={{
+            background: '#fff',
+            borderRadius: '18px',
+            padding: '2.5rem 2rem 1.5rem 2rem',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+            maxWidth: '90vw',
+            width: '400px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+            <div style={{ fontSize: '1.15rem', color: '#991B1B', marginBottom: '2rem', fontWeight: 500 }}>
+              Teruggaan is niet mogelijk.<br />Als je eenmaal een keuze in het echte leven hebt gemaakt, kan je ook niet meer terug!
+            </div>
+            <button
+              onClick={() => setShowModal(false)}
+              style={{
+                background: '#D72638',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '0.6rem 2.5rem',
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(215,38,56,0.08)',
+                marginTop: '0.5rem',
+                letterSpacing: '0.01em',
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
       {/* Timeline path with warm Brabant colors */}
       <div className="timeline-path"></div>
-      <div ref={scrollerRef} className="timeline-scroller">
+      <div
+        ref={scrollerRef}
+        className="timeline-scroller"
+        style={{ width: `${timelineMoments.length * 50}vw` }}
+      >
         {/* Timeline moments */}
         {timelineMoments.map((moment, index) => (
           <section key={index} className="timeline-moment">
@@ -134,23 +210,36 @@ const Timeline = () => {
             {/* Timeline node with Brabant styling */}
             <div
               className="timeline-node"
-              style={{ left: `${index * 50}vw` }} // Tighter spacing (reduced from 70vw to 50vw)
+              style={{ left: `${index * 50}vw` }}
             >
               {index + 1}
             </div>
             <div className="moment-scene">
-              <SceneIllustration scene={moment.scene} />
+              <SceneIllustration scene={moment.scene} time={moment.time} />
             </div>
-            <h2 className="moment-question fade-in">{moment.question}</h2>
+            <h2
+              className="moment-question fade-in text-lg md:text-xl font-medium text-center mb-8 max-w-xl mx-auto"
+              style={{ wordBreak: 'break-word', whiteSpace: 'normal' }}
+            >
+              {moment.question}
+            </h2>
             <div className="moment-options">
               {moment.options.slice(0, 2).map((option, optIndex) => (
                 <button
                   key={optIndex}
-                  className={`moment-option fade-in ${
+                  className={`moment-option fade-in whitespace-normal break-words max-w-xs text-base ${
                     userChoices[index] === option.text ? "selected" : ""
                   }`}
-                  style={{ animationDelay: `${optIndex * 0.1}s` }}
+                  style={{
+                    animationDelay: `${optIndex * 0.1}s`,
+                    opacity: index === currentMomentIndex ? 1 : 0.5,
+                    cursor: index === currentMomentIndex ? 'pointer' : 'not-allowed',
+                    pointerEvents: index === currentMomentIndex ? 'auto' : 'none',
+                    wordBreak: 'break-word',
+                    whiteSpace: 'normal',
+                  }}
                   onClick={() => handleOptionSelect(index, option.text)}
+                  disabled={index !== currentMomentIndex}
                 >
                   {option.text}
                 </button>
@@ -158,6 +247,23 @@ const Timeline = () => {
             </div>
           </section>
         ))}
+      </div>
+      <div
+        style={{
+          width: '100%',
+          textAlign: 'center',
+          marginTop: '3.5rem',
+          marginBottom: '0.5rem',
+          fontSize: '2.5rem',
+          fontWeight: 700,
+          color: '#D72638', // red
+          letterSpacing: '0.05em',
+          background: 'transparent',
+          fontFamily: 'Helvetica, sans-serif',
+          lineHeight: 1.1,
+        }}
+      >
+        Brabant 2027
       </div>
     </div>
   );

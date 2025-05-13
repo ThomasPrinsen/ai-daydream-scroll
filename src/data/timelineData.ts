@@ -9,73 +9,91 @@ export const timelineMoments: TimelineMoment[] = [
   {
     time: "07:00",
     scene: "wake-up",
-    question: "Zou je AI je outfit laten kiezen op basis van je dagschema en het weer?",
+    question: "Je weet dat je een drukke dag voor de boeg hebt, maar hoe je je ochtend begint, ligt helemaal in jouw handen. ",
     options: [
-      { text: "Laat AI mijn outfit voorstellen" },
-      { text: "Ik kies mijn eigen kleren" }
+      { text: "AI gebruiken door de ‘Slimme Ochtendassistent’ te activeren." },
+      { text: "Je zet zelf de wekker uit, die je wekte met een hard piepend geluid, en opent de gordijnen." }
     ]
   },
   {
-    time: "08:15",
+    time: "07:15",
     scene: "calendar",
-    question: "Zou je AI je schema laten herschikken voor maximale efficiëntie vandaag?",
+    question: "Je staat voor je kledingkast en twijfelt. Je hebt niet veel tijd meer en je weet dat de eerste indruk telt.",
     options: [
-      { text: "Laat AI mijn schema optimaliseren" },
-      { text: "Ik beheer mijn eigen tijd" }
+      { text: "AI gebruiken door een slimme kledingkast-assistent te gebruiken." },
+      { text: "Je kiest zelf een outfit: je vertrouwt op je eigen smaak en ervaring." }
     ]
   },
   {
-    time: "09:00",
+    time: "08:00",
     scene: "commuting",
-    question: "Zou je AI de snelste, groenste route voor je woon-werkverkeer laten kiezen?",
+    question: "Je staat in de keuken en kijkt naar de koelkast. Je weet dat een goed ontbijt je dag kan maken of breken, zeker met een volle agenda voor de boeg. Maar wat kies je vandaag?",
     options: [
-      { text: "Laat AI mijn route plannen" },
-      { text: "Ik bepaal mijn eigen route" }
+      { text: "AI gebruiken door een slimme voedingsassistent ontbijtopties te laten geven." },
+      { text: "Je opent de koelkast en maakt op gevoel een keuze." }
     ]
   },
   {
-    time: "11:00",
+    time: "08:30",
     scene: "reading",
-    question: "Zou je AI een beleidsdocument laten samenvatten en de belangrijkste risico's laten markeren?",
+    question: "Je staat voor de deur, je tas in de hand. Je weet dat je snel moet beslissen, want de tijd tikt door. Wat is de snelste manier om op je werk te komen zonder vertraging?",
     options: [
-      { text: "Laat AI het document analyseren" },
-      { text: "Ik lees het liever zelf" }
+      { text: "Je pakt de auto en gebruikt AI voor de snelste route naar werk." },
+      { text: "Je pakt het openbaar vervoer, en checkt de NS-zitplaatszoeker, die werkt door AI." }
     ]
   },
   {
-    time: "13:00",
+    time: "13:30",
     scene: "lunch",
-    question: "Zou je AI lunch laten aanbevelen op basis van je gezondheidsdoelen en middagafspraken?",
+    question: "Je moet een formele mail schrijven aan een klant. Je hebt alleen 15 minuten tijd. Hoe gaat het verlopen?",
     options: [
-      { text: "Laat AI mijn maaltijd kiezen" },
-      { text: "Ik bepaal zelf wat ik eet" }
+      { text: "Je gebruikt AI om een mail te schrijven, om zeker te zijn dat de mail correct is en de juiste informatie bevat." },
+      { text: "Je schrijft de mail zelf en gaat uit van je eigen kennis en ervaring." }
     ]
   },
   {
     time: "16:00",
     scene: "meeting",
-    question: "Zou je AI gespreks­punten laten voorstellen op basis van je aankomende gast?",
+    question: "Je hebt de ambitie om de marathon te lopen, maar je weet dat het veel voorbereiding vereist. Hoe pak je dit aan?",
     options: [
-      { text: "Laat AI mijn gespreks­punten voorbereiden" },
-      { text: "Ik bereid het zelf voor" }
+      { text: "Je geeft in AI je huidige fitnessniveau en laat AI een persoonlijk schema maken" },
+      { text: "Je besluit een personal trainer in te huren die je persoonlijk kan begeleiden. De trainer maakt een schema op maat. " }
     ]
   },
   {
     time: "18:30",
     scene: "dinner",
-    question: "Zou je AI je diner laten plannen en bezorgen?",
+    question: "Je staat in de keuken, staart naar de inhoud van je koelkast en twijfelt. Wat kun je maken van wat je hebt? Je hebt weinig zin om uren te kokerellen, maar je wilt wel iets gezonds en lekkers. ",
     options: [
-      { text: "Laat AI het diner bestellen" },
-      { text: "Ik kook of bestel zelf" }
+      { text: "Je gebruikt AI door je koelkast te scannen." },
+      { text: "Je besluit zelf de keukenprins uit te hangen en bladert door je kookboek." }
+    ]
+  },
+  {
+    time: "19:30",
+    scene: "reflection",
+    question: "Je zit de laatste tijd niet zo lekker in je vel. Je hebt een aantal mensen in je leven die je kunnen helpen, maar je hebt er geen zin in om te praten. Wat doet je?",
+    options: [
+      { text: "Je gebruikt AI om een slimme coach te activeren." },
+      { text: "Je boekt een afspraak bij een psycholoog." }
+    ]
+  },
+  {
+    time: "20:00",
+    scene: "reflection",
+    question: "Je zit met je partner op de bank. Het is zaterdagavond en jullie willen iets leuks doen, maar hebben geen zin om alles zelf uit te zoeken.",
+    options: [
+      { text: "Je gebruikt AI om een hele planning van de avond te maken." },
+      { text: "Go with the flow! Je besluit zelf de avond te plannen." }
     ]
   },
   {
     time: "21:30",
     scene: "reflection",
-    question: "Zou je AI je dag laten evalueren en verbeteringen voor morgen laten voorstellen?",
+    question: "Je kruipt onder de dekens en weet: dit wordt een fijne nacht... tenminste, voor één van jullie.",
     options: [
-      { text: "Laat AI mijn dag analyseren" },
-      { text: "Ik reflecteer liever zelf" }
+      { text: "Je gebruikt een AI-geïntegreerd kussen, die zich aanpast aan je slaaphouding en ervoor zorgt dat je minder snurkt" },
+      { text: "Je gebruikt een normaal kussen en hoopt dat je ‘s nachts niet te veel wordt wakker gemaakt door je partner." }
     ]
   }
 ];
